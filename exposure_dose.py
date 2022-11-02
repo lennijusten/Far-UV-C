@@ -6,7 +6,11 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
 # Fixed
-room_height = 2.46
+h_room = 2.46  # m
+h_stand = 1.83  # m (assuming 6ft individual)
+h_sit = 1.42  # m (assuming 6ft individual)
+r_stand = 0.61  # m (assuming 2ft radius from lamp center)
+r_sit = 0.61  # m (assuming 2ft radius from lamp center)
 
 # Lamp sepcs at peak irradiance (r=0). See
 # https://www.ushio.com/files/specifications/care222-filtered-far-uv-c-excimer-lamp-module-technical-data-sheet.pdf
@@ -66,3 +70,16 @@ def exposure_dose(r, h, t, lamp='B1'):
 
     # calculate dose (mJ/cm^2)
     return I * (t*60*60)
+
+
+# 8h exposure dose for the head of a 6ft tall person standing at peak irradiance in small office under B1 lamp
+dose1 = exposure_dose(0, h_room-h_stand, 8, lamp='B1')
+
+# 8h exposure dose for the head of a 6ft tall person sitting at peak irradiance in small office under B1 lamp
+dose2 = exposure_dose(0, h_room-h_sit, 8, lamp='B1')
+
+# 8h exposure dose for the head of a 6ft tall person standing in small office under center-ceiling B1 lamp
+dose3 = exposure_dose(r_stand, h_room-h_stand, 8, lamp='B1')
+
+# 8h exposure dose for the head of a 6ft tall person sitting in small office under center-ceiling B1 lamp
+dose4 = exposure_dose(r_sit, h_room-h_sit, 8, lamp='B1')

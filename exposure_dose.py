@@ -60,7 +60,6 @@ plt.ylabel('Irradiance ($\mu W/cm^2$)')
 plt.legend()
 plt.show()
 
-
 # Exposure calculations
 
 def exposure_dose(r, h, t, lamp='B1'):
@@ -95,3 +94,11 @@ dose3 = exposure_dose(r_office, h_office - h_stand, 8, lamp='B1')
 
 # 8h exposure dose for the head of a 6ft tall person sitting in small office under center-ceiling B1 lamp
 dose4 = exposure_dose(r_office, h_office - h_sit, 8, lamp='B1')
+
+# 1h exposure for the head of a 6ft tall person sitting in the cafeteria under the center I-meam (3 I-beams) with B1
+# lamps
+dose5 = exposure_dose(0, h_kibeam-h_sit, 1, lamp='B1') + 2 * exposure_dose(r_ibeam, h_kibeam-h_sit, 1, lamp='B1')
+
+# 1h peak exposure (r=0) for the head of a 6ft tall person sitting in a small meeting room under a center-ceiling B1
+# lamps
+dose6 = exposure_dose(0, h_mroom-h_sit, 1, lamp='B1')

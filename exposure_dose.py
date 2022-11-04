@@ -7,7 +7,8 @@ from scipy.optimize import curve_fit
 
 # Person dimensions
 h_stand = 1.83  # m (assuming 6ft individual)
-h_sit = 1.42  # m (assuming 6ft individual)
+h_sit_office = 1.42  # m (assuming 6ft individual). Varies by chair setting.
+h_sit_kitchen = 1.19  # m (assuming 6ft individual)
 
 # Office dimensions
 h_office = 2.46  # height of small office room (m)
@@ -87,18 +88,18 @@ def exposure_dose(r, h, t, lamp='B1'):
 dose1 = exposure_dose(0, h_office - h_stand, 8, lamp='B1')
 
 # 8h exposure dose for the head of a 6ft tall person sitting at peak irradiance in small office under B1 lamp
-dose2 = exposure_dose(0, h_office - h_sit, 8, lamp='B1')
+dose2 = exposure_dose(0, h_office - h_sit_office, 8, lamp='B1')
 
 # 8h exposure dose for the head of a 6ft tall person standing in small office under center-ceiling B1 lamp
 dose3 = exposure_dose(r_office, h_office - h_stand, 8, lamp='B1')
 
 # 8h exposure dose for the head of a 6ft tall person sitting in small office under center-ceiling B1 lamp
-dose4 = exposure_dose(r_office, h_office - h_sit, 8, lamp='B1')
+dose4 = exposure_dose(r_office, h_office - h_sit_office, 8, lamp='B1')
 
 # 1h exposure for the head of a 6ft tall person sitting in the cafeteria under the center I-meam (3 I-beams) with B1
 # lamps
-dose5 = exposure_dose(0, h_kibeam-h_sit, 1, lamp='B1') + 2 * exposure_dose(r_ibeam, h_kibeam-h_sit, 1, lamp='B1')
+dose5 = exposure_dose(0, h_kibeam-h_sit_kitchen, 1, lamp='B1') + 2 * exposure_dose(r_ibeam, h_kibeam-h_sit_kitchen, 1, lamp='B1')
 
 # 1h peak exposure (r=0) for the head of a 6ft tall person sitting in a small meeting room under a center-ceiling B1
 # lamps
-dose6 = exposure_dose(0, h_mroom-h_sit, 1, lamp='B1')
+dose6 = exposure_dose(0, h_mroom-h_sit_office, 1, lamp='B1')

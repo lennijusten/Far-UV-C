@@ -54,8 +54,9 @@ dose = exposure_dose(xaxis[:,None,None], yaxis[None,:,None],zaxis[None,None,:])
 def euclidean_exposure(xaxis, yaxis, z, max_height=z_office, t=8, lamp = 'B1'):
     X, Y = np.meshgrid(xaxis, yaxis)
 
-    fig = plt.figure(figsize=(22,15))
+    fig = plt.figure(figsize=(15,25))
     ax = fig.add_subplot(111, projection='3d')
+    fig.subplots_adjust(bottom=-0.05, top=1.05)
 
     norm = matplotlib.colors.Normalize(vmin=0, vmax=1000)
 
@@ -66,20 +67,31 @@ def euclidean_exposure(xaxis, yaxis, z, max_height=z_office, t=8, lamp = 'B1'):
 
     m = cm.ScalarMappable(cmap=plt.cm.inferno_r, norm=norm)
     m.set_array([])
-    # plt.colorbar(m, ax=ax)
-    ax.set_xlabel('X (m)')
-    ax.set_ylabel('Y (m)')
-    ax.set_zlabel('Z (m)')
-    # ax.set_xticklabels([None, 2, 1.5, 1.0, 0.5, 0])
-    # ax.set_yticklabels([None, 0, 0.5, 1.0, 1.5, 2])
-    # ax.set_zticks([0, 0.5, 1.0, 1.5, 2.0, 2.5])
-    # ax.set_zticklabels([0, 0.5, 1.0, 1.5, 2.0, 2.5])
+    # ax.set_xlabel('X (m)')
+    # ax.set_ylabel('Y (m)')
+    # ax.set_zlabel('Z (m)')
 
-    # ax.get_proj = lambda: np.dot(Axes3D.get_proj(ax), np.diag([1.0, 1.0, 2.0, 1]))
+    ax.tick_params(labelsize=30, pad=20)
+    ax.set_xticks([])
+    ax.set_yticks([1.0, 0.5, 0, -0.5, -1], ['0.0', '0.5', '1.0', '1.5', '2.0'])
+
+    ax.set_box_aspect(aspect=(2.5, 2.5, 4))
     ax.set_zlim3d([0, 2.5])
+    plt.savefig('3D_exposure.png', dpi=300)
+    plt.show()
 
+    _, ax1 = plt.subplots()
+    plt.colorbar(m, ax=ax1)
+    # Hide grid lines
+    ax1.grid(False)
+    # Hide axes ticks
+    ax1.set_xticks([])
+    ax1.set_yticks([])
+    plt.savefig('colorbar.png', dpi=300)
     plt.show()
 
 
 euclidean_exposure(xaxis, yaxis, [z_stand, z_sit_office, 0])
+# euclidean_exposure(xaxis, yaxis, [z_stand, z_sit_office])
+
 
